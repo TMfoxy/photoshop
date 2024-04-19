@@ -1,6 +1,6 @@
-//name: mohamed abdelaziz /ID 20231246 /filter 1 2 3 4 
+//name: mohamed abdelaziz /ID 20231246 /filter 1 2 3 4
 //name: basil hossam eldin adham /ID 20230545 /filter 5 6 7 8
-//name: hossam anwar al sayed /ID 20227032 /filter 9 10 11 12 
+//name: hossam anwar al sayed /ID 20227032 /filter 9 10 11 12
 
 
 
@@ -94,28 +94,55 @@ int main() {
                 Image cm(filename);
 
                 if (cm.loadNewImage(filename)) {
-                    cout << "loaded successfully" << endl;
+                    cout << "Image loaded successfully" << endl;
                 }
+
+                cout << "1. Flip Horizontally \n";
+                cout << "2. Flip Vertical\n";
+
+                int choice;
+                cin >> choice;
 
                 int width = cm.width;
                 int height = cm.height;
 
                 Image flippedImage(width, height);
 
-                for (int i = 0; i < width; ++i) {
-                    for (int j = 0; j < height; ++j) {
-                        for (int k = 0; k < cm.channels; ++k) {
-                            flippedImage(i, j, k) = cm(width - i - 1, j, k);
+                switch (choice) {
+                    case 1: {
+                        for (int i = 0; i < width; ++i) {
+                            for (int j = 0; j < height; ++j) {
+                                for (int k = 0; k < cm.channels; ++k) {
+                                    flippedImage(i, j, k) = cm(width - i - 1, j, k);
+                                }
+                            }
                         }
+                        break;
                     }
+
+                    case 2: {
+                        for (int i = 0; i < width; ++i) {
+                            for (int j = 0; j < height; ++j) {
+                                for (int k = 0; k < cm.channels; ++k) {
+                                    flippedImage(i, j, k) = cm(i, height - j - 1, k);
+                                }
+                            }
+                        }
+                        break;
+                    }
+
+                    default:
+                        cout << "Invalid choice." << endl;
+                        break;
                 }
 
-                cout << "Pls enter image name to store new image\n";
-                cout << "and specify extension .jpg, .bmp, .png, .tga: ";
+                cout << "Please enter the image name to store the new image\n";
+                cout << "and specify the extension (.jpg, .bmp, .png, .tga): ";
                 cin >> filename;
                 flippedImage.saveImage(filename);
                 break;
             }
+
             case 4: {
                 cout << "Pls enter first colored image name: ";
                 cin >> filename;
